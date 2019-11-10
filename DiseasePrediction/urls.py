@@ -19,9 +19,13 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls.static import static
 
+from DiseasePrediction import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     path('', include('report_to_disease_predition.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('report_to_disease_predition.urls'))
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
