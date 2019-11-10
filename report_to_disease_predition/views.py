@@ -53,24 +53,20 @@ import pickle
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.contrib.staticfiles.storage import staticfiles_storage
 from sklearn.linear_model import LogisticRegression
+from django.utils.decorators import method_decorator
 
 from django.http import JsonResponse, HttpResponse
 # from chatterbot.trainers import ChatterBotCorpusTrainer
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
 
 
 # ACCESS_TOKEN ="EAADbAKIlGVIBALXHqFaTZAPQV3C4KhSJjAlzDmfQnZAeuiTmEOtuvpyHFm8NdmzAmqNdFOlZARm1J98q9JWah9sjCIS1MOqLzKELqWHZA1vtlZBrZCar3Tq1kMSpG9wHbYZBZBZBcdBdKlPP13ZBIbq7XqDOxTrB1g4AQnw8N7Y4LiLNjHCUVd80Os"
 ACCESS_TOKEN ="EAADbAKIlGVIBAHVuOoj23vtacyRQUunwULjqzgXHGZCLRKwOsPhU8LKPaR073aBeWoFCZAR8z9yJ71IKSuo4FvXwaXTZBYiZBrZCgtjdXjhryZBoeChA4ExJoQBs64Ds1ILANC0fwH8KZB3hsZAj0HcWsatMaFOCcG3SRxIYiDHm4gYTvArQESfgQJ5ZCXk9kI2ZC02Wp8Y6UVbTePeVlwS4ST"
 VERIFY_TOKEN = 'my_voice_is_my_password_verify_me'
 
-# home page
-def home(request):
-    return render(request, 'index.html', {})
 
-# priacy page
-def privacy(request):
-    return render(request, 'privacy_policy.html', {})
-
-#building diabetes dataset from pima
+# building diabetes dataset from pima
 def build_diabetes_pima():
 
     diab = pd.read_csv(staticfiles_storage.open('dataset/diabetes.csv'))
@@ -108,6 +104,7 @@ def train(request):
 
 # predict from the user given data
 class Predict(views.APIView):
+
     # user get request serve here
     def get(self, request, version, format=None):
         if not 'verify_token' in request.GET:

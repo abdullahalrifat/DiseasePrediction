@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.conf.global_settings import CSRF_COOKIE_SECURE
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -23,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'x=d%x$x0^i6rccp^k^lvlvsi)zuy%lv6r7sc4mu*tkp$bs#@o9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'disease-prediction-by-report.herokuapp.com', 'herokuapp.com']
 
@@ -31,7 +33,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'disease-prediction-by-report.herokua
 
 INSTALLED_APPS = [
     'report_to_disease_predition.apps.ReportToDiseasePreditionConfig',
+    'app_web_view.apps.AppWebViewConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

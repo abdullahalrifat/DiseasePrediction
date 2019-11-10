@@ -18,13 +18,14 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls.static import static
-
+from rest_framework.authtoken.views import obtain_auth_token
 from DiseasePrediction import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
-    path('', include('report_to_disease_predition.urls')),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    path('', include('app_web_view.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('report_to_disease_predition.urls'))
 ]
 if settings.DEBUG:
