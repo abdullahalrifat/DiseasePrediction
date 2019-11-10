@@ -28,4 +28,4 @@ urlpatterns = [
     re_path('api/(?P<version>(v1|v2))/', include('report_to_disease_predition.urls'))
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
