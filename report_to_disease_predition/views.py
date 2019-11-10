@@ -62,10 +62,15 @@ from django.http import JsonResponse, HttpResponse
 ACCESS_TOKEN ="EAADbAKIlGVIBAHVuOoj23vtacyRQUunwULjqzgXHGZCLRKwOsPhU8LKPaR073aBeWoFCZAR8z9yJ71IKSuo4FvXwaXTZBYiZBrZCgtjdXjhryZBoeChA4ExJoQBs64Ds1ILANC0fwH8KZB3hsZAj0HcWsatMaFOCcG3SRxIYiDHm4gYTvArQESfgQJ5ZCXk9kI2ZC02Wp8Y6UVbTePeVlwS4ST"
 VERIFY_TOKEN = 'my_voice_is_my_password_verify_me'
 
+# home page
+def home(request):
+    return render(request, 'index.html', {})
 
+# priacy page
 def privacy(request):
     return render(request, 'privacy_policy.html', {})
 
+#building diabetes dataset from pima
 def build_diabetes_pima():
 
     diab = pd.read_csv(staticfiles_storage.open('dataset/diabetes.csv'))
@@ -92,12 +97,18 @@ def build_diabetes_pima():
     return model
 
 
+# creating istance of pima database model
 diabetes_model = build_diabetes_pima()
 
+
+# training the dataset
 def train(request):
     return None
-class Predict(views.APIView):
 
+
+# predict from the user given data
+class Predict(views.APIView):
+    # user get request serve here
     def get(self, request, version, format=None):
         if not 'verify_token' in request.GET:
             return HttpResponse("Verification token mismatch", status=403)
@@ -108,6 +119,7 @@ class Predict(views.APIView):
             return HttpResponse("Verification token mismatch", status=403)
         return HttpResponse("Verification Matched")
 
+    # user post request serve here
     def post(self, request, version, format=None):
         if not 'verify_token' in request.POST:
             return HttpResponse("Verification token mismatch", status=403)
@@ -130,6 +142,7 @@ class Predict(views.APIView):
             return HttpResponse("Verification Error")
 
 
+# verfiying user from token
 def verify_token(token_sent, request):
     if token_sent:
         if not token_sent == VERIFY_TOKEN:
@@ -137,39 +150,3 @@ def verify_token(token_sent, request):
         return True
 
     return None
-
-
-def send_message(request,
-                 recipient_id,
-                 message_text,
-                 category="id",
-                 message_type="UPDATE"):
-
-    # log("sending message to {recipient}: {text}".format(
-        # recipient=recipient_id, text=message_text))
-
-    params = {
-        "access_token": ACCESS_TOKEN
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            category: recipient_id
-        },
-        "message": {
-            "text": message_text["text"]
-        },
-        "messaging_type": message_type
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages",
-                      params=params, headers=headers, data=data)
-    log(r.text)
-    if r.status_code != 200:
-        log(r.status_code)
-
-
-def log(message):  # simple wrapper for logging to stdout on heroku
-    print(str(message))
-    sys.stdout.flush()
