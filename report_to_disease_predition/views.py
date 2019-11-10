@@ -91,6 +91,7 @@ def build_diabetes_pima():
     # print('\n\n')
     return model
 
+
 diabetes_model = build_diabetes_pima()
 
 def train(request):
