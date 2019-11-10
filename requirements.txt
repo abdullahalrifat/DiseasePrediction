@@ -18,3 +18,4 @@ six==1.13.0
 sklearn==0.0
 sqlparse==0.3.0
 urllib3==1.25.6
+gunicorn==19.9.0
