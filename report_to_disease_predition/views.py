@@ -54,6 +54,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.contrib.staticfiles.storage import staticfiles_storage
 from sklearn.linear_model import LogisticRegression
 from django.utils.decorators import method_decorator
+from rest_framework.permissions import IsAuthenticated  # <-- Here
 
 from django.http import JsonResponse, HttpResponse
 # from chatterbot.trainers import ChatterBotCorpusTrainer
@@ -109,13 +110,13 @@ class Predict(views.APIView):
     # user get request serve here
     def get(self, request, version, format=None):
         if not 'verify_token' in request.GET:
-            return HttpResponse("Verification token mismatch", status=403)
+            return Response("Verification token mismatch", status=403)
 
         token_sent = request.GET['verify_token']
         verifiation = verify_token(token_sent, request)
         if not verifiation:
-            return HttpResponse("Verification token mismatch", status=403)
-        return HttpResponse("Verification Matched")
+            return Response("Verification token mismatch", status=403)
+        return Response("Verification Matched")
 
     # user post request serve here
     def post(self, request, version, format=None):
@@ -137,7 +138,7 @@ class Predict(views.APIView):
                 return Response({'status': "No Model Selected"}, status=status.HTTP_201_CREATED)
             # serializer = TextSerializer(text, many=True)
         else:
-            return HttpResponse("Verification Error")
+            return Response("Verification Error")
 
 
 # verfiying user from token
