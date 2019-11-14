@@ -39,8 +39,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <form name="cardio_vascular" id="cardio_vascular" method="post">
        {% csrf_token %}
     <div class="w3-row m3">
-      <label> Age </label>
-      <input class="w3-input w3-border" id="age" name="age" type="number" placeholder="Days">
+      <label> Birth Date </label>
+      <input class="w3-input w3-border" id="age" name="age" type="date" placeholder="Days">
     </div>
     <div class="w3-row m3">
       <label> Weight</label>
@@ -142,6 +142,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     function post()
     {
          var age= document.getElementById('age').value;
+         var birth_date = new Date(age);
+         var current_date = new Date();
+         // To calculate the time difference of two dates
+         var Difference_In_Time = current_date.getTime() - birth_date.getTime();
+
+         // To calculate the no. of days between two dates
+         var Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+         //alert(Difference_In_Days);
          var height= document.getElementById('height').value;
         var weight= document.getElementById('weight').value;
 
@@ -161,7 +169,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
             data: {
                 verify_token: "{{verify_token}}",
                 type: "cardiovascular_organized",
-                age: age,
+                age: Difference_In_Days,
                 height:height,
                 weight:weight,
                 gender:gender,

@@ -41,7 +41,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
        {% csrf_token %}
        <div class="w3-row m3">
           <label> Age </label>
-          <input class="w3-input w3-border" id="age" name="age" type="number" placeholder="Years">
+          <input class="w3-input w3-border" id="age" name="age" type="date" placeholder="Years">
        </div>
        <div class="w3-row m3">
         <label> Weight(in kg)</label>
@@ -108,6 +108,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
         var height= document.getElementById('height').value;
         var weight= document.getElementById('weight').value;
         var age= document.getElementById('age').value;
+        var birth_date = new Date(age);
+        var current_date = new Date();
+        var current_age = current_date.getFullYear() - birth_date.getFullYear();
+        //alert(current_age);
         var diastolic= document.getElementById('diastolic').value;
         var pregnency_count= document.getElementById('pregnency_count').value;
         var father_diabetes= document.getElementById('father_diabetes').value;
@@ -123,7 +127,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                 glucose: glucose,
                 height:height,
                 weight:weight,
-                age:age,
+                age:current_age,
                 diastolic_bp_low:diastolic,
                 pregnancy_count:pregnency_count,
                 father_diabetes:father_diabetes,
