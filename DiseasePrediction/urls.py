@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
-    url(r'^$', include('app_web_view.urls')),
+    url('', include('app_web_view.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('report_to_disease_predition.urls'))
 ]
 if settings.DEBUG:
