@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </style>
@@ -35,23 +36,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   </div>
   
   <div class="w3-padding ">
+      <form name="cardio_vascular" id="cardio_vascular" method="post">
+       {% csrf_token %}
     <div class="w3-row m3">
       <label> Age </label>
-      <input class="w3-input w3-border"  type="number" placeholder="Days">
+      <input class="w3-input w3-border" id="age" name="age" type="number" placeholder="Days">
     </div>
     <div class="w3-row m3">
       <label> Weight</label>
-      <input class="w3-input w3-border" type="number" placeholder="in kg">
+      <input class="w3-input w3-border" type="number" id="weight" name="weight" placeholder="in kg">
     </div>
     <div class="w3-row m2">
       <label> Height</label>
-      <input class="w3-input w3-border" type="number" placeholder="in cm">
+      <input class="w3-input w3-border" type="number" id="height" name="height" placeholder="in cm">
     </div>
       
        <div class="w3-row m3">
       <label>Gender </label>
           <div>
-      <select class="w3-select" name="option">
+      <select class="w3-select" id="gender" name="gender">
       <option value="" disabled selected>Choose your option</option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
@@ -61,28 +64,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       
     <div class="w3-row m2">
       <label> Glucose</label>
-      <input class="w3-input w3-border" type="number" placeholder="0">
+      <select class="w3-select" id="glucose" name="glucose">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="Normal">Normal</option>
+      <option value="Above Normal">Above Normal</option>
+      <option value="Well Above Normal">Well Above Normal</option>
+      </select>
     </div>
       
       <div class="w3-row m2">
       <label> Cholesterol</label>
-      <input class="w3-input w3-border" type="number" placeholder="0">
+      <select class="w3-select" id="cholesterol" name="cholesterol">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="Normal">Normal</option>
+      <option value="Above Normal">Above Normal</option>
+      <option value="Well Above Normal">Well Above Normal</option>
+      </select>
     </div>
       
       <div class="w3-row m3">
       <label>Systolic BP (high) </label>
-      <input class="w3-input w3-border" type="number" placeholder="0">
+      <input class="w3-input w3-border" type="number" id="systolic" name="systolic" placeholder="0">
     </div>
       
       <div class="w3-row m3">
       <label>Diastolic BP (low) </label>
-      <input class="w3-input w3-border" type="number" placeholder="0">
+      <input class="w3-input w3-border" type="number" id="diastolic" name="diastolic" placeholder="0">
     </div>
           
           <div class="w3-row m3">
       <label> Do you do smoking? </label>
           <div>
-      <select class="w3-select" name="option">
+      <select class="w3-select" id="smoking" name="smoking">
       <option value="" disabled selected>Choose your option</option>
       <option value="1">Yes</option>
       <option value="0">No</option>
@@ -94,7 +107,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
             <div class="w3-row m3">
       <label> do you drink alcohol? </label>
           <div>
-      <select class="w3-select" name="option">
+      <select class="w3-select" id="alcohol" name="alcohol">
       <option value="" disabled selected>Choose your option</option>
       <option value="1">Yes</option>
       <option value="0">No</option>
@@ -106,7 +119,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           <div class="w3-row m3">
       <label> Do you do any physical activity? </label>
           <div>
-      <select class="w3-select" name="option">
+      <select class="w3-select" id="physical_activity" name="physical_activity">
       <option value="" disabled selected>Choose your option</option>
       <option value="1">Yes</option>
       <option value="0">No</option>
@@ -116,16 +129,80 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           </div>
     
           <br>
-      
+      </form>
     <div class="w3-row m2">
       <!--<label>
           <i class="fa fa-search"></i> Search</label>-->
-      <button class="w3-button w3-block w3-green" onclick="document.getElementById('subscribe').style.display='block'">Calculate</button>
+      <button class="w3-button w3-block w3-green" onclick="post();">Calculate</button>
     </div>
   
       
       
-     
+     <script>
+    function post()
+    {
+         var age= document.getElementById('age').value;
+         var height= document.getElementById('height').value;
+        var weight= document.getElementById('weight').value;
+
+        var gender= document.getElementById('gender').value;
+        var glucose= document.getElementById('glucose').value;
+        var cholesterol= document.getElementById('cholesterol').value;
+       var systolic= document.getElementById('systolic').value;
+        var diastolic= document.getElementById('diastolic').value;
+        var smoking= document.getElementById('smoking').value;
+        var alcohol= document.getElementById('alcohol').value;
+        var physical_activity= document.getElementById('physical_activity').value;
+        jQuery.ajax({
+            type: 'POST',
+            url: '/api/v1/predict',
+            cache: false,
+            //dataType: "json", // and this
+            data: {
+                verify_token: "{{verify_token}}",
+                type: "cardiovascular_organized",
+                age: age,
+                height:height,
+                weight:weight,
+                gender:gender,
+                glucose:glucose,
+                cholesterol:cholesterol,
+                systolic_bp_high:systolic,
+                diastolic_bp_low:diastolic,
+                smoking:smoking,
+                alcohol:alcohol,
+                physical_activity:physical_activity
+            },
+
+            success: function(response) {
+                //alert(response.prediction);
+                //alert("response : "+JSON.stringify(response));
+                //document.forms["authentication"].submit();
+                var result_text = "";
+                if(parseInt(response.prediction) == 0)
+                {
+                    result_text="Our Prediction is False. Congratulations You Don't Hae Cardio Vascular Disease From Our Prediction";
+                    document.getElementById('result').value=result_text;
+                }
+                else
+                {
+                    result_text="Our Prediction is True. You Should Visit A doctor Very Soon";
+                    document.getElementById('result').value=result_text;
+                }
+                // alert(response.prediction);
+                document.getElementById('subscribe').style.display='block';
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                //console.log(textStatus, errorThrown);
+                alert("alert : "+errorThrown);
+            },
+            complete:function(response) {
+
+            }
+        });
+    }
+</script>
 
 
   
@@ -140,7 +217,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <i onclick="document.getElementById('subscribe').style.display='none'" class="fa fa-remove w3-button w3-xlarge w3-right w3-transparent"></i>
       <h2 class="w3-wide">Your result is</h2>
       <p></p>
-      <p><input class="w3-input w3-border" type="text" placeholder=""></p>
+      <p><input class="w3-input w3-border" type="text" id="result" name="result" placeholder=""></p>
       <button type="button" class="w3-button w3-padding-large w3-green w3-margin-bottom" onclick="document.getElementById('subscribe').style.display='none'">Done</button>
     </div>
   </div>
