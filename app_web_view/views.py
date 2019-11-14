@@ -3,6 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+verify_token = "my_voice_is_my_password_verify_me"
+
 
 # home page
 def home(request):
@@ -16,12 +18,12 @@ def test(request):
 
 # home page
 def diabetes(request):
-    return render(request, 'diabetes.html', {})
+    return render(request, 'diabetes.html', {"verify_token": verify_token})
 
 
 # home page
 def cardio_vascular(request):
-    return render(request, 'cardio_vascular.html', {})
+    return render(request, 'cardio_vascular.html', {"verify_token": verify_token})
 
 # priacy page
 def privacy(request):

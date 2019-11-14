@@ -132,3 +132,4 @@ STATICFILES_DIRS = (
 )
 # Django does not support serving static files in production.
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
