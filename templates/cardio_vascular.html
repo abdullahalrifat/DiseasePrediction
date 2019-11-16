@@ -30,12 +30,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <div class="w3-content" style="max-width:1532px;">
       <div class="w3-display-middle" style="width:65%">
 
-  <div class="w3-container w3-margin-top" id="rooms">
+  <div class="w3-container w3-margin-top w3-blue" id="rooms">
     <h2>Cardio Vascular Test</h2>
     <p>We need some informations to give you the accurate result</p>
   </div>
   
-  <div class="w3-padding ">
+  <div class="w3-padding w3-light-blue">
       <form name="cardio_vascular" id="cardio_vascular" method="post">
        {% csrf_token %}
     <div class="w3-row m3">
@@ -189,12 +189,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                 var result_text = "";
                 if(parseInt(response.prediction) == 0)
                 {
-                    result_text="Our Prediction is False. Congratulations You Don't Hae Cardio Vascular Disease From Our Prediction";
+                    result_text="Congratulations You Don't Have Cardio Vascular Disease From Our Prediction";
                     document.getElementById('result').value=result_text;
                 }
                 else
                 {
-                    result_text="Our Prediction is True. You Should Visit A doctor Very Soon";
+                    result_text="You May Have Cardio Vascular Disease. You Should Visit A doctor Very Soon";
                     document.getElementById('result').value=result_text;
                 }
                 // alert(response.prediction);
