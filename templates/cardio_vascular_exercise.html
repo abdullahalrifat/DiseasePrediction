@@ -1,0 +1,101 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-blue ">
+  <a href="{% url 'home' %}" class="w3-bar-item w3-button  w3-white  w3-mobile w3-xlarge" style="z-index:3;width:320px;">
+      <!--<img src="logo.png" style="width:10%;">-->
+    PredicTx</a>
+   <a href="{% url 'test' %}" class="w3-bar-item w3-button w3-mobile">Diseases</a>
+  <a href="#about" class="w3-bar-item w3-button w3-mobile">About</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contact</a>
+  <a href="{% url 'test' %}" class="w3-bar-item w3-button w3-right  w3-mobile">Test Now</a>
+</div>
+
+<!-- Page content -->
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+<img class="w3-image" src="{% static 'assets/images/exersice.jpg' %}" alt="London" width="1500" height="50">
+  <div class="w3-content" style="max-width:1532px;">
+      <div class="w3-display-middle" style="width:65%">
+    
+     <div class="w3-container w3-blue">
+  <h2>Exercises For Cardio Vascular</h2>
+        
+
+  <div class="w3-container w3-border w3-white w3-large">
+    <div class="w3-left-align">
+
+
+<p>1.Jump Rope</p>
+
+<p>2.Dance</p>
+
+<p>3.Organized Sports</p>
+        
+<p>4.Power Walking</p>
+
+<p>5.Swimming</p>
+
+<p>6.Boxing</p>
+
+<p>7.Trampoline-ing</p>
+
+<p>8.Cycling</p>
+
+<p>9.Cycling</p>
+
+
+    
+  </div>
+</div>
+          
+
+ 
+<!-- End page content -->
+</div>
+      
+    <!-- Subscribe Modal -->
+<div id="subscribe" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom w3-padding-large">
+    <div class="w3-container w3-white w3-center">
+      <i onclick="document.getElementById('subscribe').style.display='none'" class="fa fa-remove w3-button w3-xlarge w3-right w3-transparent"></i>
+      <h2 class="w3-wide">Your result is</h2>
+      <p></p>
+      <p><input class="w3-input w3-border" type="text" placeholder=""></p>
+      <button type="button" class="w3-button w3-padding-large w3-green w3-margin-bottom" onclick="document.getElementById('subscribe').style.display='none'">Done</button>
+    </div>
+  </div>
+</div>
+    </div>
+    </header>
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-dark-grey w3-center w3-margin-top">
+  <h5>Find Us On</h5>
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">team a1</a></p>
+</footer>
+
+
+
+
+</body>
+</html>

@@ -17,6 +17,36 @@ def test(request):
 
 
 # home page
+def diabetes_medicine(request):
+    return render(request, 'diabetes_medicine.html', {})
+
+
+# home page
+def diabetes_diet_list(request):
+    return render(request, 'diabetes_diet_list.html', {})
+
+
+# home page
+def diabetes_exercise(request):
+    return render(request, 'diabetes_exercise.html', {})
+
+
+# home page
+def cardio_vascular_medicine(request):
+    return render(request, 'cardio_vascular_medicine.html', {})
+
+
+# home page
+def cardio_vascular_diet_list(request):
+    return render(request, 'cardio_vascular_diet_list.html', {})
+
+
+# home page
+def cardio_vascular_exercise(request):
+    return render(request, 'cardio_vascular_exercise.html', {})
+
+
+# home page
 def diabetes(request):
     return render(request, 'diabetes.html', {"verify_token": verify_token})
 

@@ -47,8 +47,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <img src="{% static 'assets/images/med1.jpg' %}" alt="Norway" style="width:100%">
       <div class="w3-container w3-white">
         <h3>Medicine</h3>
-          <button class="w3-button w3-block w3-blue w3-margin-bottom">Diabetes</button>
-          <button class="w3-button w3-block w3-blue w3-margin-bottom">Cardio Vascular</button>
+          <button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="location.href='{% url 'diabetes_medicine' %}'">Diabetes</button>
+          <button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="location.href='{% url 'cardio_vascular_medicine' %}'">Cardio Vascular</button>
           <button class="w3-button w3-block w3-blue w3-margin-bottom">Disease A</button>
           <button class="w3-button w3-block w3-blue w3-margin-bottom">Disease B</button>
       </div>
@@ -57,8 +57,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <img src="{% static 'assets/images/diet1.jpeg' %}" alt="Norway" style="width:100%">
       <div class="w3-container w3-white">
         <h3>Diet List</h3>
-         <button class="w3-button w3-block w3-blue w3-margin-bottom">Diabetes</button>
-          <button class="w3-button w3-block w3-blue w3-margin-bottom">Cardio Vascular</button>
+         <button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="location.href='{% url 'diabetes_diet_list' %}'">Diabetes</button>
+          <button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="location.href='{% url 'cardio_vascular_diet_list' %}'">Cardio Vascular</button>
           <button class="w3-button w3-block w3-blue w3-margin-bottom">Disease A</button>
           <button class="w3-button w3-block w3-blue w3-margin-bottom">Disease B</button>
       </div>
@@ -67,8 +67,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <img src="{% static 'assets/images/exersice1.jpg' %}" alt="Norway" style="width:100%">
       <div class="w3-container w3-white">
         <h3>Exercise</h3>
-        <button class="w3-button w3-block w3-blue w3-margin-bottom">Diabetes</button>
-          <button class="w3-button w3-block w3-blue w3-margin-bottom">Cardio Vascular</button>
+        <button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="location.href='{% url 'diabetes_exercise' %}'">Diabetes</button>
+          <button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="location.href='{% url 'cardio_vascular_exercise' %}'">Cardio Vascular</button>
           <button class="w3-button w3-block w3-blue w3-margin-bottom">Disease A</button>
           <button class="w3-button w3-block w3-blue w3-margin-bottom">Disease B</button>
       </div>
