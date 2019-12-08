@@ -11,6 +11,10 @@ def home(request):
     return render(request, 'index.html', {})
 
 
+def doctor_find(request):
+    return render(request, 'doctor_find.html', {"verify_token": verify_token})
+
+
 # home page
 def test(request):
     return render(request, 'test.html', {})

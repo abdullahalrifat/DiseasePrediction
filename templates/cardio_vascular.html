@@ -169,6 +169,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
             data: {
                 verify_token: "{{verify_token}}",
                 type: "cardiovascular_organized",
+                csrfmiddlewaretoken: '{{ csrf_token }}',
                 age: Difference_In_Days,
                 height:height,
                 weight:weight,
@@ -189,7 +190,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                 var result_text = "";
                 if(parseInt(response.prediction) == 0)
                 {
-                    result_text="Congratulations You Don't Have Cardio Vascular Disease From Our Prediction";
+                    result_text="Congratulations You May Not Have Cardio Vascular Disease From Our Prediction";
                     document.getElementById('result').value=result_text;
                 }
                 else

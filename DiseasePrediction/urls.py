@@ -26,7 +26,8 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     url('', include('app_web_view.urls')),
-    re_path('api/(?P<version>(v1|v2))/', include('report_to_disease_predition.urls'))
+    re_path('api/(?P<version>(v1|v2))/', include('report_to_disease_predition.urls')),
+    re_path('api-doctor/(?P<version>(v1|v2))/', include('find_doctor.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

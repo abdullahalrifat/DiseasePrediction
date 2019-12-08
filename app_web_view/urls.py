@@ -7,6 +7,7 @@ from app_web_view.views import *
 urlpatterns = [
     url(r'^$', home, name='home'),
     url(r'^test', test, name='test'),
+    url(r'^doctor_find', doctor_find, name='doctor_find'),
     url(r'^diabetes$', diabetes, name='diabetes'),
     url(r'^diabetes_medicine', diabetes_medicine, name='diabetes_medicine'),
     url(r'^diabetes_diet_list', diabetes_diet_list, name='diabetes_diet_list'),

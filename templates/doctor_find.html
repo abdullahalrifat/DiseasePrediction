@@ -1,0 +1,178 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-blue ">
+  <a href="{% url 'home' %}" class="w3-bar-item w3-button  w3-white  w3-mobile w3-xlarge" style="z-index:3;width:320px;">
+      <!--<img src="logo.png" style="width:10%;">-->
+    PredicTx</a>
+  <a href="{% url 'test' %}" class="w3-bar-item w3-button w3-mobile">Diseases</a>
+  <a href="#about" class="w3-bar-item w3-button w3-mobile">About</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contact</a>
+</div>
+
+<!-- Page content -->
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+<img class="w3-image" src="{% static 'assets/images/heartb.jpg' %}" alt="London" width="1500" height="50">
+  <div class="w3-content" style="max-width:1532px;">
+      <div class="w3-display-middle" style="width:65%">
+
+  <div class="w3-container w3-margin-top w3-blue" id="rooms">
+    <h2>Find Doctor</h2>
+    <p>Please Choose Closest Place and Speciality to get suggetions of best Doctors around that Area</p>
+  </div>
+
+  <div class="w3-padding w3-light-blue">
+      <form name="doctor_find" id="doctor_find" method="post">
+       {% csrf_token %}
+            <div class="w3-row m3">
+               <div class="w3-row m3">
+                  <label>Place </label>
+                   <div>
+                      <select class="w3-select" id="place" name="place">
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="Dhanmondi">Dhanmondi</option>
+                          <option value="Mohammadpur">Mohammadpur</option>
+                      </select>
+                  </div>
+              </div>
+            </div>
+
+          <br>
+          <div class="w3-row m3">
+               <div class="w3-row m3">
+                  <label>Speciality </label>
+                   <div>
+                      <select class="w3-select" id="speciality" name="speciality">
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="Medicine">Medicine</option>
+                           <option value="Heart">Heart</option>
+                          <option value="Cancer">Cancer</option>
+                      </select>
+                  </div>
+              </div>
+            </div>
+
+          <br>
+
+      </form>
+    <div class="w3-row m2">
+      <!--<label>
+          <i class="fa fa-search"></i> Search</label>-->
+      <button class="w3-button w3-block w3-green" onclick="post();">Search</button>
+    </div>
+
+  </div>
+
+     <script>
+    function post()
+    {
+         var place= document.getElementById('place').value;
+
+         var speciality= document.getElementById('speciality').value;
+
+         //alert(place);
+         //alert(speciality);
+        jQuery.ajax({
+            type: 'POST',
+            url: '/api-doctor/v1/search',
+            cache: false,
+            //dataType: "json", // and this
+            data: {
+                verify_token: "{{verify_token}}",
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                type: "search_by_speciality_and_area",
+                place: place,
+                speciality:speciality
+            },
+
+            success: function(response) {
+                //alert(response.response);
+                var doctors = response.response;
+                var result_text ="<button type=\"button\" class=\"w3-button w3-padding-large w3-green w3-margin-bottom\" onclick=\"document.getElementById('subscribe').style.display='none'\">Done</button>";
+
+
+                document.getElementById('doctor_details').insertAdjacentHTML("afterend", result_text);
+                for(var doctor in doctors) {
+                   var result_text="<div class=\"card\">\n" +
+                       "  <img src=\"{% static 'assets/images/doc3.jpg' %}\" alt=\"Avatar\" class=\"avatar\" style=\"width:100%\">\n" +
+                       "  <h1> Name :   "+doctors[doctor].doctorName+"</h1>\n" +
+                       "  <p class=\"title\"> Speciality :  "+doctors[doctor].doctor_specialist_On+"</p>\n" +
+                       "  <p> Address:  "+doctors[doctor].doctor_address+"</p>\n" +
+                       "  <p> Phone No: "+doctors[doctor].doctor_phone_no+"</p>\n" +
+                       "  <p><button>Contact</button></p>\n" +
+                       "</div>"+
+                       "</br>";
+                   document.getElementById('doctor_details').insertAdjacentHTML("afterend", result_text);
+                   console.log(doctor, doctors[doctor]);
+                }
+
+                var result_text = "<i onclick=\"document.getElementById('subscribe').style.display='none'\" class=\"fa fa-remove w3-button w3-xlarge w3-right w3-transparent\"></i>";
+                document.getElementById('doctor_details').insertAdjacentHTML("afterend", result_text);
+
+
+
+                document.getElementById('subscribe').style.display='block';
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                //console.log(textStatus, errorThrown);
+                alert("alert : "+errorThrown);
+            },
+            complete:function(response) {
+
+            }
+        });
+    }
+</script>
+
+
+
+
+<!-- End page content -->
+</div>
+
+    <!-- Subscribe Modal -->
+<div id="subscribe" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom w3-padding-large">
+    <div class="w3-container w3-white w3-center" id="doctor_details">
+
+    </div>
+  </div>
+</div>
+    </div>
+    </header>
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-dark-grey w3-center w3-margin-top">
+  <h5>Find Us On</h5>
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">team a1</a></p>
+</footer>
+
+
+
+
+</body>
+</html>
